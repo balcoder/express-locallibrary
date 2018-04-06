@@ -5,11 +5,20 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 //var bodyParser = require('body-parser')
 
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 // create an express application object named app
 var app = express();
+
+//Set up mongoose connection
+var mongoose = require('mongoose');
+var mongoDB = 'mongodb://balcoder:librarysquidladder@ds237489.mlab.com:37489/local_library';
+mongoose.connect(mongoDB);
+mongoose.Promise = global.Promise;
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
